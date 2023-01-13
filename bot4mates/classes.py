@@ -2,6 +2,7 @@ from collections import UserDict
 from dateutil import parser
 from datetime import date
 import re
+from abc import ABC, abstractmethod#імпорт абстрактного класу
 
 class Field:
 
@@ -163,8 +164,18 @@ class Record:
 	def __repr__(self):
 		return f"Name: {self.name}, Phones: {self.phones}, Birthday: {self.birthday}, Address: {self.address}, Email: {self.email}"
 
+class AddrB(ABC):#створення абстрактного класу
+	@abstractmethod
+	def add_record(self, record):
+		pass
 
-class AddressBook(UserDict):
+	@abstractmethod
+	def search_contacts(self, text):
+		pass
+
+
+class AddressBook(UserDict,AddrB):#наслідування від абстрактного класу
+#class AddressBook(UserDict):
 	def add_record(self, record):
 		self.data[record.name.value] = record
 

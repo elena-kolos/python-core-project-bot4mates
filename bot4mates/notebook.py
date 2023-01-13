@@ -6,11 +6,17 @@ from datetime import datetime
 import json
 from colorama import init, Fore, Back, Style#Сторонний пакет
 from textmatch import fuzzy_match
+from abc import ABC, abstractmethod#імпорт абстрактного класу
 
 init(autoreset=True)#Для Windows 10
 
 #---------------------------------------------------------------------------------------------
-class NoteBase(UserDict):
+class NoteB(ABC):#створення абстрактного класу
+	@abstractmethod
+	def add_record(self, record):
+		pass
+
+class NoteBase(UserDict, NoteB):#наслідування від абстрактного класу
     def add_record(self, record):
         self.data[record.note_id] = record
     def __str__(self):
